@@ -98,19 +98,14 @@ public:
             // First need to create (or retrive a person's id)
             const int who_id = get_id_or_create_person(old_todo.who);
 
-            // Add the todo (copy over old data), note that we cannot specify the old id yet.
+            // Add the todo (copy over old data)
             const V2::TodoItemRecord new_todo{
-                .id     = -1,
+                .id     = old_todo.id,
                 .who_id = who_id,
                 .thing  = old_todo.thing,
                 .status = status_v1_to_v2(old_todo.status)
             };
-            const int temp_id = db.insert(new_todo);
-
-            // Now that the new record is in, we can change the id to match the old one
-            auto id_col = c(&V2::TodoItemRecord::id);
-            db.update_all(sqlite_orm::set(id_col = old_todo.id),
-                                      where(id_col == temp_id));
+            db.replace(new_todo);
         }
 
         update_edit_time();

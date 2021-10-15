@@ -25,7 +25,7 @@ auto create_database(const std::string &db_filename) {
         ),
         make_table(
             "todo_items",
-            make_column("id",     &TodoItemRecord::id, autoincrement(), primary_key()),
+            make_column("id",     &TodoItemRecord::id, primary_key(), autoincrement()),
             make_column("who_id", &TodoItemRecord::who_id),
             make_column("thing",  &TodoItemRecord::thing),
             make_column("status", &TodoItemRecord::status),

@@ -37,7 +37,7 @@ inline auto _create_database(const string &db_filename) {
         ),
         make_table(
             "todo_items",
-            make_column("id",     &TodoItem::id, autoincrement(), primary_key()),
+            make_column("id",     &TodoItem::id, primary_key(), autoincrement()),
             make_column("who",    &TodoItem::who),
             make_column("thing",  &TodoItem::thing),
             make_column("status", &TodoItem::get_status, &TodoItem::set_status)
